@@ -28,7 +28,7 @@
                     {% endfor %}
                 </ul>
                 <div class="d-flex">
-                    <a href="#" class="btn btn-outline-light position-relative me-3">
+                    <a href="{% url "cart:cart_detail" %}" class="btn btn-outline-light position-relative me-3">
                         <i class="bi bi-cart"></i> Корзина
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             {% with total_items=cart|length %}
@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-md-4">
                     <h5>Контакты</h5>
-                    <p>Email: ...<br>Телефон: ...</p>
+                    <p>Email: info@techshop.ru<br>Телефон: +7 (123) 456-78-90</p>
                 </div>
                 <div class="col-md-4">
                     <h5>Мы в соцсетях</h5>

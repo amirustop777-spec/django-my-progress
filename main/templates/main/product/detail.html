@@ -6,7 +6,11 @@
     <div class="product-detail">
         <div class="row">
             <div class="col-md-6">
-                <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+                {% else %}
+                    <img src="/static/img/no-image.png" class="img-fluid rounded" alt="Нет фото">
+                {% endif %}
             </div>
             <div class="col-md-6">
                 <h1>{{ product.name }}</h1>
@@ -38,7 +42,11 @@
                     <div class="col-md-3 mb-4">
                         <div class="card h-100">
                             <a href="{{ product.get_absolute_url }}">
-                                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                                {% else %}
+                                    <img src="/static/img/no-image.png" class="card-img-top" alt="Нет фото">
+                                {% endif %}
                             </a>
                             <div class="card-body">
                                 <h5 class="card-title">
