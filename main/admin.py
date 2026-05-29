@@ -1,22 +1,31 @@
 from django.contrib import admin
+
 from .models import Category, Product
 
-# регистрация моделей в админ-панели
+# Настройки админ-панели для моделей приложения main.
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    # колонки, которые будут видны в списке категорий
+    # Какие поля показывать в списке категорий.
     list_display = ['name', 'slug']
-    # автоматическое заполнение слага на основе имени при вводе
-    prepopulated_fields = {'slug': ('name', )}
+
+    # Автозаполнение slug на основе name.
+    # При вводе Django заполнит slug автоматически (если это поле в форме).
+    prepopulated_fields = {'slug': ('name',)}
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    # колонки, которые будут видны в списке товаров
+    # Поля, которые показываются в списке товаров.
     list_display = ['name', 'category', 'price', 'available', 'created', 'updated']
-    # правая панель с фильтрами для быстрой сортировки
+
+    # Боковые фильтры в админке.
     list_filter = ['available', 'created', 'updated', 'category']
-    # поля, которые можно редактировать прямо в списке, не заходя в товар
+
+    # Какие поля можно редактировать прямо в таблице.
     list_editable = ['price', 'available']
-    # автоматическое заполнение слага для товара
-    prepopulated_fields = {'slug': ('name', )}
+
+    # Автозаполнение slug на основе name.
+    prepopulated_fields = {'slug': ('name',)}
+

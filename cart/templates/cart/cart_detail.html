@@ -4,6 +4,7 @@
 
 {% block content %}
     <h1>Ваша корзина</h1>
+
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -15,19 +16,28 @@
                     <th>Общая стоимость</th>
                 </tr>
             </thead>
+
             <tbody>
+                {# cart — объект Cart из cart/context_processors.py #}
                 {% for item in cart %}
                     <tr>
                         <td>{{ item.product.name }}</td>
+
                         <td>
+                            {# Форма обновления quantity.
+                               В views.cart_detail создаётся item.update_quantity_form #}
                             <form action="{% url 'cart:cart_add' item.product.id %}" method="post">
                                 {{ item.update_quantity_form.quantity }}
+                                {# override=True означает: установим quantity заново #}
                                 {{ item.update_quantity_form.override }}
+
                                 <button type="submit" class="btn btn-sm btn-outline-secondary">Обновить</button>
                                 {% csrf_token %}
                             </form>
                         </td>
+
                         <td>
+                            {# Удаление товара из корзины #}
                             <form action="{% url 'cart:cart_remove' item.product.id %}" method="post">
                                 <button type="submit" class="btn btn-sm btn-danger">
                                     <i class="bi bi-trash"></i>
@@ -35,6 +45,7 @@
                                 {% csrf_token %}
                             </form>
                         </td>
+
                         <td>{{ item.price }} руб.</td>
                         <td>{{ item.total_price }} руб.</td>
                     </tr>
@@ -43,6 +54,8 @@
                         <td colspan="5">Ваша корзина пуста</td>
                     </tr>
                 {% endfor %}
+
+                {# Итог по корзине. Cart реализует get_total_price(). #}
                 {% if cart.get_total_price %}
                     <tr class="table-active">
                         <td colspan="4">Итого:</td>
@@ -52,10 +65,14 @@
             </tbody>
         </table>
     </div>
+
     <div class="d-flex justify-content-between">
         <a href="{% url 'main:product_list' %}" class="btn btn-outline-secondary">
             Продолжить покупки
         </a>
+
+        {# Заглушка — оформление заказа в проекте не реализовано #}
         <a href="#" class="btn btn-primary">Оформить заказ</a>
     </div>
 {% endblock %}
+
